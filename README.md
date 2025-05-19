@@ -1,12 +1,51 @@
-# React + Vite
+# Programin
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Plataforma de aprendizado de programação com cursos de HTML, CSS e JavaScript.
 
-Currently, two official plugins are available:
+## Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React
+- React Router
+- Tailwind CSS
+- Vite
 
-## Expanding the ESLint configuration
+## Funcionalidades
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Sistema de autenticação
+- Tela de login e cadastro
+- Dashboard com cursos disponíveis
+- Indicador de progresso
+
+## Como Executar
+
+1. Clone o repositório
+   \`\`\`bash
+   git clone https://github.com/seu-usuario/programin.git
+   cd programin
+   \`\`\`
+
+2. Instale as dependências
+   \`\`\`bash
+   npm install
+   \`\`\`
+
+3. Execute o projeto
+   \`\`\`bash
+   npm run dev
+   \`\`\`
+
+4. Acesse no navegador
+   \`\`\`
+   http://localhost:5173
+   \`\`\`
+
+## Estrutura do Projeto
+
+- `src/components`: Componentes reutilizáveis
+- `src/pages`: Páginas da aplicação
+- `src/utils`: Funções utilitárias
+- `public`: Arquivos estáticos
+
+## Licença
+
+Este projeto está sob a licença MIT.
