@@ -1,8 +1,13 @@
 import { Lock } from "lucide-react"
 
-const CourseCard = ({ title, image, isLocked }) => {
+const CourseCard = ({ title, image, isLocked, onClick }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 border border-primary-100">
+    <div
+      onClick={!isLocked ? onClick : undefined}
+      className={`bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 border border-primary-100 ${
+        isLocked ? "cursor-not-allowed opacity-70" : "cursor-pointer"
+      }`}
+    >
       <div className="relative">
         <img src={image || "/placeholder.svg"} alt={title} className="w-full h-48 object-cover" />
         {isLocked && (
@@ -25,7 +30,9 @@ const CourseCard = ({ title, image, isLocked }) => {
 
         <button
           className={`mt-4 w-full py-2 px-4 rounded-md font-medium ${
-            isLocked ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-primary-600 text-white hover:bg-primary-700"
+            isLocked
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-primary-600 text-white hover:bg-primary-700"
           }`}
           disabled={isLocked}
         >
