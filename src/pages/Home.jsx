@@ -28,7 +28,7 @@ const Home = ({ onLogout }) => {
       id: 3,
       title: "Aprenda JavaScript",
       image: "/placeholder-w79wh.png",
-      isLocked: true,
+      isLocked: false,
     },
   ]
 
@@ -53,7 +53,8 @@ const Home = ({ onLogout }) => {
               isLocked={course.isLocked}
               onClick={() => {
                 if (course.title === "Aprenda HTML") navigate("/trilha-html")
-                // Você pode adicionar outros redirecionamentos aqui no futuro
+                else if (course.title === "Aprenda CSS") navigate("/trilha-css")
+                else if (course.title === "Aprenda JavaScript") navigate("/trilha-javascript") // ✅ Corrigido
               }}
             />
           ))}
@@ -66,4 +67,3 @@ const Home = ({ onLogout }) => {
 }
 
 export default Home
-
