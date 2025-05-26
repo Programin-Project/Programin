@@ -1,11 +1,27 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}", "*.{js,ts,jsx,tsx,mdx}"],
+  darkMode: ["class"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{ts,tsx}", // padrão do ShadCN
+  ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
+        // Cores customizadas do seu projeto
+        "programin-blue": "#3170D7",
+        "programin-light-blue": "#e7ecf8",
+
         primary: {
-          DEFAULT: "#0073ff", // Azul principal
+          DEFAULT: "#0073ff",
           50: "#e6f1ff",
           100: "#cce3ff",
           200: "#99c7ff",
@@ -18,7 +34,7 @@ module.exports = {
           900: "#001766",
         },
         secondary: {
-          DEFAULT: "#00cc00", // Verde principal
+          DEFAULT: "#00cc00",
           50: "#e6ffe6",
           100: "#ccffcc",
           200: "#99ff99",
@@ -31,7 +47,7 @@ module.exports = {
           900: "#003300",
         },
         accent: {
-          DEFAULT: "#ffeb00", // Amarelo principal
+          DEFAULT: "#ffeb00",
           50: "#fffde6",
           100: "#fffbcc",
           200: "#fff799",
@@ -57,4 +73,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
