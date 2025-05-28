@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import Login from "./pages/Login"
@@ -29,10 +31,7 @@ function App() {
         <Router>
           <Routes>
             {/* Rota de login */}
-            <Route
-              path="/login"
-              element={isAuthenticated ? <Navigate to="/" /> : <Login onLogin={handleLogin} />}
-            />
+            <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} />
 
             {/* Rota de registro */}
             <Route
@@ -44,20 +43,11 @@ function App() {
             <Route path="/recover-password" element={<RecoverPassword />} />
 
             {/* Rota principal (Home) */}
-            <Route
-              path="/"
-              element={isAuthenticated ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />}
-            />
+            <Route path="/" element={isAuthenticated ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />} />
 
             {/* Trilhas protegidas */}
-            <Route
-              path="/trilha-html"
-              element={isAuthenticated ? <TrilhaHTML /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/trilha-css"
-              element={isAuthenticated ? <TrilhaCSS /> : <Navigate to="/login" />}
-            />
+            <Route path="/trilha-html" element={isAuthenticated ? <TrilhaHTML /> : <Navigate to="/login" />} />
+            <Route path="/trilha-css" element={isAuthenticated ? <TrilhaCSS /> : <Navigate to="/login" />} />
             <Route
               path="/trilha-javascript"
               element={isAuthenticated ? <TrilhaJavaScript /> : <Navigate to="/login" />}
@@ -70,4 +60,3 @@ function App() {
 }
 
 export default App
-

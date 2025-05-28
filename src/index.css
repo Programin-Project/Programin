@@ -39,12 +39,53 @@ input:focus {
   border-color: #0073ff;
   box-shadow: 0 0 0 2px rgba(0, 115, 255, 0.2);
 }
+
 /* Estilos para o logo */
+/* Ajustes para centralizar a logo no header */
 .logo-container {
-  position: fixed;
-  top: 20px;
-  left: 30px;
+  position: relative;
   z-index: 100;
+}
+
+header .logo-container {
+  position: relative;
+  top: auto;
+  left: auto;
+}
+
+/* Ajustes específicos para a logo no header */
+header .logo-container {
+  position: static;
+  z-index: auto;
+}
+
+header .logo {
+  font-size: 28px;
+  margin: 0;
+}
+
+/* Ajuste da cor da logo baseado no tema */
+body:not(.dark-theme) header .logo {
+  color: #1f2937;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme header .logo {
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsividade para a logo no header */
+@media (max-width: 768px) {
+  header .logo {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  header .logo {
+    font-size: 20px;
+  }
 }
 
 .logo-button {
@@ -75,17 +116,18 @@ input:focus {
   animation: logoEntrance 1s ease-out forwards;
   opacity: 0;
   transform: translateY(-10px);
-  position: relative; /* Importante para posicionamento das estrelas */
+  position: relative;
 }
 
-@keyframes logoEntrance {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
+/* Ajuste para o tema claro */
+body:not(.dark-theme) header .logo {
+  color: #1a1a1a;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 24px;
   }
 }
 
@@ -94,7 +136,7 @@ body.dark-theme .logo {
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-/* Animação de estrelas - ATUALIZADO PARA FORMATO DE ESTRELA */
+/* Animação de estrelas */
 .stars-container {
   position: absolute;
   top: 0;
@@ -103,22 +145,19 @@ body.dark-theme .logo {
   height: 100%;
   pointer-events: none;
   overflow: visible;
-  z-index: 10; /* Garantir que as estrelas apareçam acima do texto */
+  z-index: 10;
 }
 
 .star {
   position: absolute;
-  background-color: #ffd700; /* Amarelo ouro */
+  background-color: #ffd700;
   width: 10px;
   height: 10px;
   opacity: 0;
   pointer-events: none;
   animation: starAnimation 0.8s ease-out forwards;
-  /* Formato de estrela usando clip-path */
   clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-  /* Brilho amarelo */
   box-shadow: 0 0 5px 2px rgba(255, 215, 0, 0.7);
-  /* Rotação aleatória */
   transform: rotate(var(--rotation));
 }
 
@@ -368,7 +407,7 @@ button[type="submit"] {
   height: 44px;
 }
 
-/* Estilos da animação de chuva de código (Projeto 2) - MODIFICADOS */
+/* Estilos da animação de chuva de código */
 #symbols-container {
   position: fixed;
   top: 0;
@@ -382,24 +421,17 @@ button[type="submit"] {
 .symbol {
   position: absolute;
   top: -20px;
-  /* Cor mais forte e menos neon */
   color: #00d6b9;
-  /* Reduzindo o text-shadow para diminuir o efeito neon */
   text-shadow: 0 0 3px rgba(0, 214, 185, 0.4);
-  /* Mantendo boa opacidade */
   opacity: 1;
   animation: fall linear forwards;
-  /* Sem blur para maior nitidez */
   filter: blur(0px);
   transition: color 0.3s ease;
-  /* Mantendo o font-weight para reforçar */
   font-weight: 600;
-  /* Variável para controlar a duração base da animação */
   --base-duration: 2.5s;
 }
 
 .symbol.halfway {
-  /* Cor mais forte e menos neon para o estado halfway */
   color: #ff7b29;
   text-shadow: 0 0 3px rgba(255, 123, 41, 0.4);
 }
@@ -596,7 +628,7 @@ body.dark-theme .symbol.halfway {
   text-shadow: 0 0 3px rgba(255, 133, 51, 0.4);
 }
 
-/* ESTILOS ATUALIZADOS - Efeito de onda para transição de fundo */
+/* Efeito de onda para transição de fundo */
 #wave-effect {
   position: fixed;
   top: 0;
@@ -613,24 +645,12 @@ body.dark-theme .symbol.halfway {
 
 /* Tema claro - onda de branco gelo para laranja suave */
 body:not(.dark-theme) #wave-effect {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    #f5f5f5 50% /* branco gelo */,
-    #ffebda 50.1% /* laranja muito suave */,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, #f5f5f5 50%, #ffebda 50.1%, transparent 100%);
 }
 
 /* Tema escuro - onda de cinza escuro para preto */
 body.dark-theme #wave-effect {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    #1a1a1a 50% /* cinza escuro */,
-    #121212 50.1% /* preto */,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, #1a1a1a 50%, #121212 50.1%, transparent 100%);
 }
 
 #wave-effect.active {
@@ -663,11 +683,11 @@ body {
 }
 
 body.transitioning {
-  background-color: #ffebda; /* laranja muito suave */
+  background-color: #ffebda;
 }
 
 body.dark-theme.transitioning {
-  background-color: #1a1a1a; /* cinza escuro */
+  background-color: #1a1a1a;
 }
 
 /* Efeito de pulso sutil no fundo claro */
@@ -751,4 +771,90 @@ body.dark-theme .password-toggle-btn {
 
 body.dark-theme .password-toggle-btn:hover {
   color: #5a8ade;
+}
+
+/* Estilos globais para transições de tema - integração com Tailwind */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Estilos para o tema escuro - integração com Tailwind */
+body.dark {
+  background-color: #111827;
+  color: #f9fafb;
+}
+
+body.light {
+  background-color: #ffffff;
+  color: #111827;
+}
+
+/* Animações personalizadas para os cards */
+@keyframes progressFill {
+  0% {
+    width: 0%;
+  }
+}
+
+@keyframes progressGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+  }
+}
+
+/* Scrollbar personalizada para tema escuro */
+body.dark ::-webkit-scrollbar {
+  width: 8px;
+}
+
+body.dark ::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 4px;
+}
+
+body.dark ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Scrollbar personalizada para tema claro */
+body.light ::-webkit-scrollbar {
+  width: 8px;
+}
+
+body.light ::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+body.light ::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+body.light ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Definição da animação logoEntrance que estava sendo usada mas não estava definida */
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Garantir que a logo seja visível no header */
+header .logo {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }

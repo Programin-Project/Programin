@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import Logo from "../components-telas/Logo"
-import ThemeToggle from "../components-telas/ThemeToggle"
+import Logo from "../components-home/Logo"
+import ThemeToggle from "../components-home/ThemeToggle"
 import BackgroundEffects from "../components-telas/BackgroundEffect"
 import { useNotification } from "../contexts/NotificationContext"
 

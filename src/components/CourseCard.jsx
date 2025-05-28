@@ -1,33 +1,66 @@
 "use client"
 
-const CourseCard = ({ title, description, image, progress = 0, onClick }) => {
-  // Garantir que o progresso esteja entre 0 e 100
-  const safeProgress = Math.min(100, Math.max(0, progress))
+import { useTheme } from "../contexts/ThemeContext"
+import LevelCard from "./LevelCard"
 
-  // Imagens de fallback específicas para cada curso
+const CourseCard = ({ title, description, image, levels, onClick, color }) => {
+  const { isDarkTheme } = useTheme()
+
+  const getCardColorClasses = () => {
+    const baseClasses =
+      "rounded-xl shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+
+    // Manter cores vibrantes mesmo no modo escuro
+    switch (color) {
+      case "orange":
+        return `${baseClasses} bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200`
+      case "blue":
+        return `${baseClasses} bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200`
+      case "yellow":
+        return `${baseClasses} bg-gradient-to-br from-yellow-50 to-yellow-100 border-2 border-yellow-200`
+      default:
+        return `${baseClasses} ${isDarkTheme ? "bg-gray-800 border border-gray-700" : "bg-white border border-gray-200"}`
+    }
+  }
+
+  const getTitleColor = () => {
+    // Manter cores dos títulos sempre vibrantes
+    switch (color) {
+      case "orange":
+        return "text-orange-800"
+      case "blue":
+        return "text-blue-800"
+      case "yellow":
+        return "text-yellow-800"
+      default:
+        return isDarkTheme ? "text-white" : "text-gray-800"
+    }
+  }
+
+  const getDescriptionColor = () => {
+    // Melhorar contraste da descrição no modo claro
+    return "text-gray-700"
+  }
+
   const getDefaultImage = () => {
     if (title.includes("HTML")) {
       return "src/assets/como-funciona-html-1-.jpg"
     } else if (title.includes("CSS")) {
-      return "src/assets/images (1).jpg"
+      return "src/assets/aplicando-estilos-css-1521410533.png"
     } else if (title.includes("JavaScript")) {
-      return "/src/assets/photo-1687603917313-ccae1a289a9d.jpg"
+      return "src/assets/photo-1687603917313-ccae1a289a9d.jpg"
     }
-    return "/placeholder.svg?height=200&width=200&query=programming%20course"
+    return "/placeholder.svg?height=200&width=300&text=Code"
   }
 
   return (
-    <div
-      className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer w-full group relative transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-      style={{ width: "400px", height: "400px" }}
-      onClick={onClick}
-    >
+    <div className={`w-full max-w-sm ${getCardColorClasses()}`} onClick={onClick}>
       {/* Imagem */}
-      <div className="h-48 bg-gray-100 flex items-center justify-center p-5">
+      <div className="h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
         <img
           src={image || getDefaultImage()}
           alt={title}
-          className="h-40 w-auto object-contain"
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
           onError={(e) => {
             e.target.onerror = null
             e.target.src = getDefaultImage()
@@ -36,35 +69,26 @@ const CourseCard = ({ title, description, image, progress = 0, onClick }) => {
       </div>
 
       {/* Conteúdo */}
-      <div className="p-6 flex flex-col h-[calc(400px-192px)]">
+      <div className="p-6">
         {/* Título */}
-        <h3 className="text-xl font-bold text-primary-700 mb-3 group-hover:text-primary-600 transition-colors">
-          {title}
-        </h3>
+        <h3 className={`text-xl font-bold mb-3 transition-colors ${getTitleColor()}`}>{title}</h3>
 
-        {/* Descrição */}
-        <p className="text-gray-600 text-sm leading-relaxed overflow-auto mb-4">{description}</p>
+        {/* Descrição com melhor contraste */}
+        <p className={`text-sm leading-relaxed mb-6 ${getDescriptionColor()}`}>{description}</p>
 
-        {/* Barra de Progresso */}
-        <div className="mt-auto">
-          <div className="flex justify-between items-center mb-1">
-            <span className="text-xs font-medium text-gray-500">Progresso</span>
-            <span className="text-xs font-medium text-primary-600">{safeProgress}%</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
-            <div
-              className="bg-primary-600 h-2.5 rounded-full transition-all duration-500 ease-out"
-              style={{ width: `${safeProgress}%` }}
-            ></div>
-          </div>
+        {/* Mini-cards de níveis */}
+        <div className="space-y-3">
+          {levels.map((level, index) => (
+            <LevelCard
+              key={index}
+              level={level.name}
+              questionsCount={level.questions}
+              progress={level.progress}
+              color={color}
+            />
+          ))}
         </div>
       </div>
-
-      {/* Overlay de hover */}
-      <div className="absolute inset-0 bg-primary-600 bg-opacity-0 group-hover:bg-opacity-5 transition-all duration-300 pointer-events-none"></div>
-
-      {/* Borda inferior que aparece no hover */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
     </div>
   )
 }

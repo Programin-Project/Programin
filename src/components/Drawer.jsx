@@ -1,110 +1,89 @@
 "use client"
 
 import { X, LogOut, Home, BookOpen, Award, Settings, User } from "lucide-react"
+import { useTheme } from "../contexts/ThemeContext"
 
 const Drawer = ({ isOpen, onClose, onLogout }) => {
+  const { isDarkTheme } = useTheme()
+
   return (
     <>
-      {/* Overlay com animação de fade */}
+      {/* Overlay */}
       {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
-          onClick={onClose}
-          style={{
-            animation: isOpen ? "fadeIn 0.3s ease-in-out" : "fadeOut 0.3s ease-in-out",
-          }}
-        ></div>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300" onClick={onClose} />
       )}
 
-      {/* Drawer com design melhorado */}
+      {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-80 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
-        } flex flex-col`}
+        } flex flex-col ${isDarkTheme ? "bg-gray-900 border-l border-gray-700" : "bg-white border-l border-gray-200"}`}
       >
-        {/* Cabeçalho do Drawer */}
-        <div className="p-4 border-b border-primary-100 bg-gradient-to-r from-primary-600 to-primary-700">
+        {/* Header */}
+        <div className={`p-6 border-b ${isDarkTheme ? "border-slate-700 bg-slate-800" : "border-gray-200 bg-white"}`}>
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold text-white">Menu</h2>
+            <h2 className={`text-xl font-bold ${isDarkTheme ? "text-white" : "text-gray-800"}`}>Menu</h2>
             <button
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-primary-500 transition-colors"
+              className={`p-2 rounded-full transition-colors ${
+                isDarkTheme ? "hover:bg-slate-700 text-gray-300" : "hover:bg-gray-100 text-gray-600"
+              }`}
               aria-label="Fechar menu"
             >
-              <X className="text-white" size={20} />
+              <X size={20} />
             </button>
           </div>
         </div>
 
-        {/* Perfil do usuário */}
-        <div className="p-4 border-b border-gray-100 flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
-            <User className="text-primary-600" size={20} />
+        {/* Perfil */}
+        <div
+          className={`p-6 border-b flex items-center space-x-4 ${isDarkTheme ? "border-gray-700" : "border-gray-200"}`}
+        >
+          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+            <User className="text-white" size={24} />
           </div>
           <div>
-            <p className="font-medium text-gray-800">Usuário</p>
-            <p className="text-xs text-gray-500">estudante@programin.com</p>
+            <p className={`font-medium ${isDarkTheme ? "text-white" : "text-gray-800"}`}>Usuário</p>
+            <p className={`text-sm ${isDarkTheme ? "text-gray-400" : "text-gray-500"}`}>estudante@programin.com</p>
           </div>
         </div>
 
-        {/* Links de navegação */}
-        <nav className="flex-grow p-4 space-y-1">
-          <a
-            href="#"
-            className="flex items-center space-x-3 p-2 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-700 transition-colors"
-          >
-            <Home size={18} className="text-primary-500" />
-            <span>Início</span>
-          </a>
-
-          <a
-            href="#"
-            className="flex items-center space-x-3 p-2 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-700 transition-colors"
-          >
-            <BookOpen size={18} className="text-primary-500" />
-            <span>Meus Cursos</span>
-          </a>
-
-          <a
-            href="#"
-            className="flex items-center space-x-3 p-2 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-700 transition-colors"
-          >
-            <Award size={18} className="text-primary-500" />
-            <span>Certificados</span>
-          </a>
-
-          <a
-            href="#"
-            className="flex items-center space-x-3 p-2 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-700 transition-colors"
-          >
-            <Settings size={18} className="text-primary-500" />
-            <span>Configurações</span>
-          </a>
+        {/* Navegação */}
+        <nav className="flex-grow p-6 space-y-2">
+          {[
+            { icon: Home, label: "Início", href: "#" },
+            { icon: BookOpen, label: "Meus Cursos", href: "#" },
+            { icon: Award, label: "Certificados", href: "#" },
+            { icon: Settings, label: "Configurações", href: "#" },
+          ].map((item, index) => (
+            <a
+              key={index}
+              href={item.href}
+              className={`flex items-center space-x-3 p-3 rounded-lg transition-all duration-300 hover:scale-105 ${
+                isDarkTheme
+                  ? "hover:bg-gray-800 text-gray-300 hover:text-white"
+                  : "hover:bg-gray-100 text-gray-700 hover:text-gray-900"
+              }`}
+            >
+              <item.icon size={20} className="text-blue-500" />
+              <span className="font-medium">{item.label}</span>
+            </a>
+          ))}
         </nav>
 
-        {/* Rodapé com botão de logout */}
-        <div className="p-4 border-t border-gray-100 mt-auto">
+        {/* Logout */}
+        <div className={`p-6 border-t ${isDarkTheme ? "border-gray-700" : "border-gray-200"}`}>
           <button
             onClick={onLogout}
-            className="flex items-center space-x-2 text-primary-600 hover:text-primary-800 w-full p-2 rounded-lg hover:bg-primary-50 transition-colors"
+            className={`flex items-center space-x-3 w-full p-3 rounded-lg transition-all duration-300 hover:scale-105 ${
+              isDarkTheme ? "text-red-400 hover:bg-red-900 hover:bg-opacity-20" : "text-red-600 hover:bg-red-50"
+            }`}
           >
-            <LogOut size={18} className="text-primary-500" />
-            <span>Sair</span>
+            <LogOut size={20} />
+            <span className="font-medium">Sair</span>
           </button>
         </div>
       </div>
-
-      {/* Estilos para animação */}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
-      `}</style>
     </>
   )
 }
