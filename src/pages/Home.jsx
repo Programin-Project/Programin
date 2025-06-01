@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { useTheme } from "../contexts/ThemeContext"
-import Header from "../components/Header"
-import CourseCard from "../components/CourseCard"
-import Footer from "../components/Footer"
-import Drawer from "../components/Drawer"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "../contexts/ThemeContext";
+import Header from "../components-home/Header";
+import CourseCard from "../components-home/CourseCard";
+import Footer from "../components-home/Footer";
+import Drawer from "../components-home/Drawer";
 
 const Home = ({ onLogout }) => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const navigate = useNavigate()
-  const { isDarkTheme } = useTheme()
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isDarkTheme } = useTheme();
 
   const courses = [
     {
@@ -53,20 +53,26 @@ const Home = ({ onLogout }) => {
         { name: "Avançado", questions: 10, progress: 0 },
       ],
     },
-  ]
+  ];
 
   const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen)
-  }
+    setIsDrawerOpen(!isDrawerOpen);
+  };
 
   return (
     <div
       className={`flex flex-col min-h-screen transition-colors duration-300 ${
-        isDarkTheme ? "bg-gray-900" : "bg-gradient-to-br from-gray-50 to-blue-50"
+        isDarkTheme
+          ? "bg-gray-900"
+          : "bg-gradient-to-br from-gray-50 to-blue-50"
       }`}
     >
       <Header toggleDrawer={toggleDrawer} />
-      <Drawer isOpen={isDrawerOpen} onClose={toggleDrawer} onLogout={onLogout} />
+      <Drawer
+        isOpen={isDrawerOpen}
+        onClose={toggleDrawer}
+        onLogout={onLogout}
+      />
 
       <main className="flex-grow container mx-auto px-6 py-12">
         {/* Título e Descrição */}
@@ -78,10 +84,15 @@ const Home = ({ onLogout }) => {
           >
             Módulos Disponíveis
           </h2>
-          <p className={`text-lg max-w-3xl mx-auto leading-relaxed ${isDarkTheme ? "text-gray-300" : "text-gray-600"}`}>
-            Embarque em uma jornada de aprendizado completa através dos fundamentos do desenvolvimento web. Domine HTML
-            para estruturar conteúdo, CSS para criar designs impressionantes e JavaScript para adicionar interatividade
-            às suas criações.
+          <p
+            className={`text-lg max-w-3xl mx-auto leading-relaxed ${
+              isDarkTheme ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
+            Embarque em uma jornada de aprendizado completa através dos
+            fundamentos do desenvolvimento web. Domine HTML para estruturar
+            conteúdo, CSS para criar designs impressionantes e JavaScript para
+            adicionar interatividade às suas criações.
           </p>
         </div>
 
@@ -97,9 +108,11 @@ const Home = ({ onLogout }) => {
                 color={course.color}
                 levels={course.levels}
                 onClick={() => {
-                  if (course.title === "Aprenda HTML") navigate("/trilha-html")
-                  else if (course.title === "Aprenda CSS") navigate("/trilha-css")
-                  else if (course.title === "Aprenda JavaScript") navigate("/trilha-javascript")
+                  if (course.title === "Aprenda HTML") navigate("/trilha-html");
+                  else if (course.title === "Aprenda CSS")
+                    navigate("/trilha-css");
+                  else if (course.title === "Aprenda JavaScript")
+                    navigate("/trilha-javascript");
                 }}
               />
             ))}
@@ -109,7 +122,7 @@ const Home = ({ onLogout }) => {
 
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

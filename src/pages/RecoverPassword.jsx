@@ -1,33 +1,38 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import Logo from "../components-home/Logo"
-import ThemeToggle from "../components-home/ThemeToggle"
-import BackgroundEffects from "../components-telas/BackgroundEffect"
-import { useNotification } from "../contexts/NotificationContext"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Logo from "../components-gerais/Logo";
+import ThemeToggle from "../components-gerais/ThemeToggle";
+import BackgroundEffects from "../components-acesso/BackgroundEffect";
+import MascotWithSpeech from "../components-gerais/MascoteWithSpeech";
+import { useNotification } from "../contexts/NotificationContext";
 
 function RecoverPassword() {
-  const [email, setEmail] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const { showNotification } = useNotification()
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { showNotification } = useNotification();
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
 
     setTimeout(() => {
-      console.log("Tentativa de recuperação de senha para:", email)
-      setIsLoading(false)
+      console.log("Tentativa de recuperação de senha para:", email);
+      setIsLoading(false);
 
-      showNotification("Link de recuperação enviado para seu e-mail!")
-    }, 1500)
-  }
+      showNotification("Link de recuperação enviado para seu e-mail!");
+    }, 1500);
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center" id="body">
+    <div
+      className="min-h-screen flex items-center justify-center relative"
+      id="body"
+    >
       <Logo />
       <BackgroundEffects />
+      <MascotWithSpeech />
 
       <div
         className="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto z-10 my-10 card-animation relative"
@@ -36,7 +41,10 @@ function RecoverPassword() {
         <ThemeToggle />
 
         <div className="px-10 py-8">
-          <h1 className="text-[#1a1f36] text-2xl font-semibold text-center mb-8 title-animation" id="login-title">
+          <h1
+            className="text-[#1a1f36] text-2xl font-semibold text-center mb-8 title-animation"
+            id="login-title"
+          >
             Recuperar Senha
           </h1>
 
@@ -46,7 +54,10 @@ function RecoverPassword() {
 
           <form onSubmit={handleSubmit} id="recoverForm">
             <div className="mb-5 form-group-animation">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 E-mail
               </label>
               <input
@@ -63,7 +74,9 @@ function RecoverPassword() {
 
             <button
               type="submit"
-              className={`w-full bg-programin-blue text-white py-3 px-4 rounded-md hover:bg-opacity-90 transition-colors font-medium button-animation ${isLoading ? "loading" : ""}`}
+              className={`w-full bg-programin-blue text-white py-3 px-4 rounded-md hover:bg-opacity-90 transition-colors font-medium button-animation ${
+                isLoading ? "loading" : ""
+              }`}
               style={{ animationDelay: "300ms" }}
               disabled={isLoading}
             >
@@ -77,7 +90,10 @@ function RecoverPassword() {
             </button>
 
             <div className="mt-4 text-center">
-              <Link to="/login" className="text-programin-blue hover:underline link-animation">
+              <Link
+                to="/login"
+                className="text-programin-blue hover:underline link-animation"
+              >
                 Voltar para o login
               </Link>
             </div>
@@ -91,14 +107,17 @@ function RecoverPassword() {
         >
           <p className="text-sm text-gray-600">
             Novo na Programin?{" "}
-            <Link to="/register" className="text-programin-blue hover:underline link-animation">
+            <Link
+              to="/register"
+              className="text-programin-blue hover:underline link-animation"
+            >
               Crie uma conta
             </Link>
           </p>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default RecoverPassword
+export default RecoverPassword;
