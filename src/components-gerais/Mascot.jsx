@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import "./styles/mascot.css";
+import "./styles/mascot.css"
 
 const Mascot = ({ onClick }) => {
   const [isWaving, setIsWaving] = useState(false)
