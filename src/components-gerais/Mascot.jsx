@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import '../../styles/mascot.css';
 
 const Mascot = ({ onClick }) => {
   const [isWaving, setIsWaving] = useState(false)
@@ -106,6 +105,217 @@ const Mascot = ({ onClick }) => {
         {/* Shadow */}
         <div className="shadow"></div>
       </div>
+
+      <style jsx>{`
+        .mascot-container {
+          position: relative;
+          width: 150px;
+          height: 200px;
+          margin: 0 auto;
+          transform-origin: bottom center;
+        }
+        
+        .mascot {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 120px;
+          height: 160px;
+          transition: transform 0.1s ease-in-out;
+        }
+        
+        .mascot:hover {
+          transform: translateX(-50%) scale(1.05);
+        }
+        
+        .mascot.jump {
+          animation: jump 0.5s ease-in-out;
+        }
+        
+        .body {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          background-color: #0284c7; /* Primary-600 color */
+          border-radius: 50% 50% 40% 40%;
+          overflow: visible;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .head {
+          position: relative;
+          width: 100%;
+          height: 70%;
+          border-radius: 50% 50% 40% 40%;
+        }
+        
+        .eyes {
+          position: absolute;
+          top: 30%;
+          left: 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+        }
+        
+        .eye {
+          width: 30px;
+          height: 30px;
+          background-color: white;
+          border-radius: 50%;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: height 0.1s ease;
+        }
+        
+        .eye.blink {
+          height: 2px;
+        }
+        
+        .pupil {
+          width: 12px;
+          height: 12px;
+          background-color: #333;
+          border-radius: 50%;
+          position: relative;
+        }
+        
+        .eye.blink .pupil {
+          display: none;
+        }
+        
+        .beak {
+          position: absolute;
+          bottom: 15%;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 30px;
+          height: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          z-index: 2;
+        }
+        
+        .beak-top {
+          width: 30px;
+          height: 10px;
+          background-color: #fbbf24; /* Accent-400 color */
+          border-radius: 50% 50% 0 0;
+        }
+        
+        .beak-bottom {
+          width: 25px;
+          height: 10px;
+          background-color: #fcd34d; /* Accent-300 color */
+          border-radius: 0 0 50% 50%;
+          transform-origin: top center;
+          transition: transform 0.2s ease;
+        }
+        
+        .beak.talk .beak-bottom {
+          animation: talk 0.2s ease-in-out infinite alternate;
+        }
+        
+        .eyebrows {
+          position: absolute;
+          top: 22%;
+          left: 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+        }
+        
+        .eyebrow {
+          width: 20px;
+          height: 5px;
+          background-color: #075985; /* Primary-800 color */
+          border-radius: 5px;
+        }
+        
+        .arms {
+          position: absolute;
+          bottom: 30%;
+          left: 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+        }
+        
+        .arm {
+          width: 15px;
+          height: 40px;
+          background-color: #0369a1; /* Primary-700 color */
+          border-radius: 10px;
+        }
+        
+        .arm.left {
+          transform-origin: top center;
+          transform: rotate(10deg) translateX(10px);
+        }
+        
+        .arm.left.wave {
+          animation: wave 0.5s ease-in-out infinite alternate;
+        }
+        
+        .arm.right {
+          transform: rotate(-10deg) translateX(-10px);
+        }
+        
+        .feet {
+          position: absolute;
+          bottom: -10px;
+          left: 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+        }
+        
+        .foot {
+          width: 25px;
+          height: 15px;
+          background-color: #fbbf24; /* Accent-400 color */
+          border-radius: 50% 50% 0 0;
+          transform: rotate(90deg);
+        }
+        
+        .shadow {
+          position: absolute;
+          bottom: -15px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 80%;
+          height: 15px;
+          background-color: rgba(0, 0, 0, 0.1);
+          border-radius: 50%;
+        }
+        
+        @keyframes blink {
+          0%, 100% { height: 30px; }
+          50% { height: 2px; }
+        }
+        
+        @keyframes talk {
+          0% { transform: scaleY(1); }
+          100% { transform: scaleY(0.5); }
+        }
+        
+        @keyframes wave {
+          0% { transform: rotate(10deg) translateX(10px); }
+          100% { transform: rotate(40deg) translateX(10px); }
+        }
+        
+        @keyframes jump {
+          0%, 100% { transform: translateX(-50%) translateY(0); }
+          50% { transform: translateX(-50%) translateY(-20px); }
+        }
+      `}</style>
     </div>
   )
 }
