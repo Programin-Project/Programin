@@ -108,13 +108,15 @@ const Mascot = ({ onClick }) => {
 
       <style jsx>{`
         .mascot-container {
-          position: relative;
+          position: fixed;
+          bottom: 50px;
+          left: 50px;
           width: 150px;
           height: 200px;
-          margin: 0 auto;
           transform-origin: bottom center;
+          z-index: 50;
         }
-        
+
         .mascot {
           position: absolute;
           bottom: 0;
@@ -124,13 +126,9 @@ const Mascot = ({ onClick }) => {
           height: 160px;
           transition: transform 0.1s ease-in-out;
         }
-        
+
         .mascot:hover {
           transform: translateX(-50%) scale(1.05);
-        }
-        
-        .mascot.jump {
-          animation: jump 0.5s ease-in-out;
         }
         
         .body {

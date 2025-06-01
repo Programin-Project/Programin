@@ -63,7 +63,10 @@ function Login({ onLogin }) {
       className="min-h-screen flex items-center justify-center relative"
       id="body"
     >
-      <Logo />
+      <div className="relative h-screen left-8">
+      <Logo variant="auth" />
+      {/* Conteúdo da página aqui */}
+    </div>
       <BackgroundEffects />
       <MascotWithSpeech />
 
