@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import { useState, useRef } from "react";
-import Mascot from "./Mascot";
+import { useState, useRef } from "react"
+import Mascot from "./Mascot"
 
 const MascotWithSpeech = () => {
-  const [showSpeech, setShowSpeech] = useState(false);
-  const [speechText, setSpecchText] = useState("");
-  const speechRef = useRef(null);
+  const [showSpeech, setShowSpeech] = useState(false)
+  const [speechText, setSpecchText] = useState("")
+  const speechRef = useRef(null)
 
   const messages = [
     "Olá! Vamos aprender a programar?",
@@ -18,86 +18,122 @@ const MascotWithSpeech = () => {
     "Programação é como um superpoder!",
     "Vamos continuar aprendendo juntos?",
     "Tente completar um desafio hoje!",
-  ];
+  ]
 
   const handleMascotClick = () => {
     // Get random message
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    setSpecchText(randomMessage);
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)]
+    setSpecchText(randomMessage)
 
     // Show speech bubble
-    setShowSpeech(true);
+    setShowSpeech(true)
 
     // Hide after 4 seconds
     setTimeout(() => {
-      setShowSpeech(false);
-    }, 4000);
-  };
+      setShowSpeech(false)
+    }, 4000)
+  }
 
   return (
-    <div className="mascot-speech-container absolute bottom-4 right-4 z-20">
+    <div className="mascot-speech-container">
       <Mascot onClick={handleMascotClick} />
 
-      {/* Speech bubble */}
-      <div
-        ref={speechRef}
-        className={`speech-bubble ${showSpeech ? "visible" : ""}`}
-      >
+      {/* Speech bubble - nuvem acima do mascote */}
+      <div ref={speechRef} className={`speech-bubble ${showSpeech ? "visible" : ""}`}>
         <p>{speechText}</p>
       </div>
 
       <style jsx>{`
         .mascot-speech-container {
           position: relative;
-          width: 150px;
-          height: 200px;
         }
 
         .speech-bubble {
-          position: absolute;
-          top: 0;
-          left: 50%;
-          transform: translateX(-50%) translateY(-100%);
+          position: fixed;
+          bottom: 270px;
+          left: 50px;
           background-color: white;
           border-radius: 20px;
-          padding: 10px 15px;
+          padding: 12px 16px;
           min-width: 200px;
-          max-width: 250px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          max-width: 280px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
           opacity: 0;
           visibility: hidden;
-          transition: opacity 0.3s ease, transform 0.3s ease;
-          z-index: 10;
+          transition: all 0.3s ease;
+          z-index: 60;
+          border: 2px solid #e5e7eb;
+        }
+
+        @media (max-width: 768px) {
+          .speech-bubble {
+            bottom: 220px;
+            left: 30px;
+            min-width: 160px;
+            max-width: 220px;
+            padding: 10px 12px;
+          }
         }
 
         .speech-bubble:after {
           content: "";
           position: absolute;
-          bottom: -10px;
-          left: 50%;
-          transform: translateX(-50%);
+          bottom: -12px;
+          left: 50px;
           width: 0;
           height: 0;
-          border-left: 10px solid transparent;
-          border-right: 10px solid transparent;
-          border-top: 10px solid white;
+          border-left: 12px solid transparent;
+          border-right: 12px solid transparent;
+          border-top: 12px solid white;
+        }
+
+        @media (max-width: 768px) {
+          .speech-bubble:after {
+            left: 40px;
+          }
+        }
+
+        .speech-bubble:before {
+          content: "";
+          position: absolute;
+          bottom: -15px;
+          left: 48px;
+          width: 0;
+          height: 0;
+          border-left: 14px solid transparent;
+          border-right: 14px solid transparent;
+          border-top: 14px solid #e5e7eb;
+        }
+
+        @media (max-width: 768px) {
+          .speech-bubble:before {
+            left: 38px;
+          }
         }
 
         .speech-bubble.visible {
           opacity: 1;
           visibility: visible;
-          transform: translateX(-50%) translateY(-110%);
+          transform: translateY(-10px);
         }
 
         .speech-bubble p {
           margin: 0;
           font-size: 14px;
-          color: #333;
+          color: #374151;
           text-align: center;
+          line-height: 1.4;
+          font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+          .speech-bubble p {
+            font-size: 12px;
+          }
         }
       `}</style>
     </div>
-  );
-};
+  )
+}
 
-export default MascotWithSpeech;
+export default MascotWithSpeech

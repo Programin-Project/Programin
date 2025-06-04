@@ -117,6 +117,15 @@ const Mascot = ({ onClick }) => {
           z-index: 50;
         }
 
+        @media (max-width: 768px) {
+          .mascot-container {
+            bottom: 30px;
+            left: 30px;
+            width: 120px;
+            height: 160px;
+          }
+        }
+
         .mascot {
           position: absolute;
           bottom: 0;
@@ -125,6 +134,13 @@ const Mascot = ({ onClick }) => {
           width: 120px;
           height: 160px;
           transition: transform 0.1s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+          .mascot {
+            width: 100px;
+            height: 130px;
+          }
         }
 
         .mascot:hover {
@@ -171,6 +187,13 @@ const Mascot = ({ onClick }) => {
           align-items: center;
           transition: height 0.1s ease;
         }
+
+        @media (max-width: 768px) {
+          .eye {
+            width: 25px;
+            height: 25px;
+          }
+        }
         
         .eye.blink {
           height: 2px;
@@ -182,6 +205,13 @@ const Mascot = ({ onClick }) => {
           background-color: #333;
           border-radius: 50%;
           position: relative;
+        }
+
+        @media (max-width: 768px) {
+          .pupil {
+            width: 10px;
+            height: 10px;
+          }
         }
         
         .eye.blink .pupil {
@@ -200,12 +230,26 @@ const Mascot = ({ onClick }) => {
           align-items: center;
           z-index: 2;
         }
+
+        @media (max-width: 768px) {
+          .beak {
+            width: 25px;
+            height: 16px;
+          }
+        }
         
         .beak-top {
           width: 30px;
           height: 10px;
           background-color: #fbbf24; /* Accent-400 color */
           border-radius: 50% 50% 0 0;
+        }
+
+        @media (max-width: 768px) {
+          .beak-top {
+            width: 25px;
+            height: 8px;
+          }
         }
         
         .beak-bottom {
@@ -215,6 +259,13 @@ const Mascot = ({ onClick }) => {
           border-radius: 0 0 50% 50%;
           transform-origin: top center;
           transition: transform 0.2s ease;
+        }
+
+        @media (max-width: 768px) {
+          .beak-bottom {
+            width: 20px;
+            height: 8px;
+          }
         }
         
         .beak.talk .beak-bottom {
@@ -236,6 +287,13 @@ const Mascot = ({ onClick }) => {
           background-color: #075985; /* Primary-800 color */
           border-radius: 5px;
         }
+
+        @media (max-width: 768px) {
+          .eyebrow {
+            width: 16px;
+            height: 4px;
+          }
+        }
         
         .arms {
           position: absolute;
@@ -251,6 +309,13 @@ const Mascot = ({ onClick }) => {
           height: 40px;
           background-color: #0369a1; /* Primary-700 color */
           border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+          .arm {
+            width: 12px;
+            height: 32px;
+          }
         }
         
         .arm.left {
@@ -282,6 +347,13 @@ const Mascot = ({ onClick }) => {
           border-radius: 50% 50% 0 0;
           transform: rotate(90deg);
         }
+
+        @media (max-width: 768px) {
+          .foot {
+            width: 20px;
+            height: 12px;
+          }
+        }
         
         .shadow {
           position: absolute;
@@ -292,6 +364,13 @@ const Mascot = ({ onClick }) => {
           height: 15px;
           background-color: rgba(0, 0, 0, 0.1);
           border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+          .shadow {
+            bottom: -12px;
+            height: 12px;
+          }
         }
         
         @keyframes blink {
@@ -312,6 +391,10 @@ const Mascot = ({ onClick }) => {
         @keyframes jump {
           0%, 100% { transform: translateX(-50%) translateY(0); }
           50% { transform: translateX(-50%) translateY(-20px); }
+        }
+
+        .mascot.jump {
+          animation: jump 0.5s ease-in-out;
         }
       `}</style>
     </div>

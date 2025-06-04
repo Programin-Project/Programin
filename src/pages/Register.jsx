@@ -1,77 +1,77 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Logo from "../components-gerais/Logo";
-import ThemeToggle from "../components-gerais/ThemeToggle";
-import BackgroundEffects from "../components-acesso/BackgroundEffect";
-import MascotWithSpeech from "../components-gerais/MascoteWithSpeech";
-import { useNotification } from "../contexts/NotificationContext";
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import Logo from "../components-gerais/Logo"
+import ThemeToggle from "../components-gerais/ThemeToggle"
+import BackgroundEffects from "../components-acesso/BackgroundEffect"
+import MascotWithSpeech from "../components-gerais/MascoteWithSpeech"
+import { useNotification } from "../contexts/NotificationContext"
 
 function Register() {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [terms, setTerms] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const { showNotification } = useNotification();
-  const navigate = useNavigate();
+  const [nome, setNome] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [terms, setTerms] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const { showNotification } = useNotification()
+  const navigate = useNavigate()
 
   const validatePasswords = () => {
     if (password !== confirmPassword) {
-      showNotification("As senhas não coincidem!");
-      return false;
+      showNotification("As senhas não coincidem!")
+      return false
     }
 
     if (password.length < 8) {
-      showNotification("A senha deve ter pelo menos 8 caracteres!");
-      return false;
+      showNotification("A senha deve ter pelo menos 8 caracteres!")
+      return false
     }
 
     // Verificar se contém pelo menos uma letra e um número
-    const hasLetter = /[a-zA-Z]/.test(password);
-    const hasNumber = /[0-9]/.test(password);
+    const hasLetter = /[a-zA-Z]/.test(password)
+    const hasNumber = /[0-9]/.test(password)
 
     if (!hasLetter || !hasNumber) {
-      showNotification("A senha deve conter letras e números!");
-      return false;
+      showNotification("A senha deve conter letras e números!")
+      return false
     }
 
-    return true;
-  };
+    return true
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!validatePasswords()) {
-      return;
+      return
     }
 
     if (!terms) {
-      showNotification("Você precisa concordar com os termos de uso");
-      return;
+      showNotification("Você precisa concordar com os termos de uso")
+      return
     }
 
-    setIsLoading(true);
+    setIsLoading(true)
 
     setTimeout(() => {
-      console.log("Tentativa de cadastro:", { nome, email, password, terms });
-      setIsLoading(false);
+      console.log("Tentativa de cadastro:", { nome, email, password, terms })
+      setIsLoading(false)
 
-      showNotification("Conta criada com sucesso! Redirecionando...");
+      showNotification("Conta criada com sucesso! Redirecionando...")
 
       // Redirecionar para a página de login após o cadastro
       setTimeout(() => {
-        navigate("/login");
-      }, 2000);
-    }, 1500);
-  };
+        navigate("/login")
+      }, 2000)
+    }, 1500)
+  }
 
   const handleSocialLogin = (provider) => {
-    showNotification(`Redirecionando para cadastro com ${provider}...`);
+    showNotification(`Redirecionando para cadastro com ${provider}...`)
 
     setTimeout(() => {
       // URLs de redirecionamento conforme o original
@@ -82,18 +82,15 @@ function Register() {
           "https://github.com/login/oauth/authorize?client_id=YOUR_GITHUB_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=user:email",
         LinkedIn:
           "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_LINKEDIN_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=r_liteprofile%20r_emailaddress",
-      };
+      }
 
-      window.location.href = urls[provider];
-    }, 1000);
-  };
+      window.location.href = urls[provider]
+    }, 1000)
+  }
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center relative"
-      id="body"
-    >
-      <Logo />
+    <div className="min-h-screen flex items-center justify-center relative" id="body">
+      <Logo variant="auth" />
       <BackgroundEffects />
       <MascotWithSpeech />
 
@@ -104,19 +101,13 @@ function Register() {
         <ThemeToggle />
 
         <div className="px-10 py-8">
-          <h1
-            className="text-[#1a1f36] text-2xl font-semibold text-center mb-6 title-animation"
-            id="login-title"
-          >
+          <h1 className="text-[#1a1f36] text-2xl font-semibold text-center mb-6 title-animation" id="login-title">
             Crie sua conta
           </h1>
 
           <form onSubmit={handleSubmit} id="cadastroForm">
             <div className="mb-4 form-group-animation">
-              <label
-                htmlFor="nome"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label htmlFor="nome" className="block text-sm font-medium text-gray-700 mb-1">
                 Nome completo
               </label>
               <input
@@ -131,14 +122,8 @@ function Register() {
               />
             </div>
 
-            <div
-              className="mb-4 form-group-animation"
-              style={{ animationDelay: "100ms" }}
-            >
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+            <div className="mb-4 form-group-animation" style={{ animationDelay: "100ms" }}>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 E-mail
               </label>
               <input
@@ -152,14 +137,8 @@ function Register() {
               />
             </div>
 
-            <div
-              className="mb-4 form-group-animation"
-              style={{ animationDelay: "200ms" }}
-            >
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+            <div className="mb-4 form-group-animation" style={{ animationDelay: "200ms" }}>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                 Senha
               </label>
               <div className="relative">
@@ -172,11 +151,7 @@ function Register() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <button
-                  type="button"
-                  className="password-toggle-btn"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
+                <button type="button" className="password-toggle-btn" onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -212,19 +187,11 @@ function Register() {
                   )}
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-1">
-                Mínimo de 8 caracteres, incluindo letras e números
-              </p>
+              <p className="text-xs text-gray-500 mt-1">Mínimo de 8 caracteres, incluindo letras e números</p>
             </div>
 
-            <div
-              className="mb-5 form-group-animation"
-              style={{ animationDelay: "300ms" }}
-            >
-              <label
-                htmlFor="confirm-password"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+            <div className="mb-5 form-group-animation" style={{ animationDelay: "300ms" }}>
+              <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1">
                 Confirmar senha
               </label>
               <div className="relative">
@@ -279,10 +246,7 @@ function Register() {
               </div>
             </div>
 
-            <div
-              className="mb-6 form-group-animation"
-              style={{ animationDelay: "400ms" }}
-            >
+            <div className="mb-6 form-group-animation" style={{ animationDelay: "400ms" }}>
               <label className="flex items-center checkbox-container">
                 <div className="relative flex items-center justify-center">
                   <input
@@ -326,10 +290,7 @@ function Register() {
             </button>
           </form>
 
-          <div
-            className="flex items-center my-6 divider-animation"
-            style={{ animationDelay: "600ms" }}
-          >
+          <div className="flex items-center my-6 divider-animation" style={{ animationDelay: "600ms" }}>
             <div className="flex-grow border-t border-gray-200"></div>
             <span className="px-4 text-sm text-gray-500">OU</span>
             <div className="flex-grow border-t border-gray-200"></div>
@@ -411,17 +372,14 @@ function Register() {
         >
           <p className="text-sm text-gray-600">
             Já tem uma conta?{" "}
-            <Link
-              to="/login"
-              className="text-programin-blue hover:underline link-animation"
-            >
+            <Link to="/login" className="text-programin-blue hover:underline link-animation">
               Faça login
             </Link>
           </p>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Register;
+export default Register

@@ -4,7 +4,6 @@ import { useRef, useEffect } from "react"
 import { useTheme } from "../contexts/ThemeContext"
 import { useNotification } from "../contexts/NotificationContext"
 
-
 function Logo({ variant = "home", className = "" }) {
   const starsContainerRef = useRef(null)
   const logoTextRef = useRef(null)
