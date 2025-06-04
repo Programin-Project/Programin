@@ -1,19 +1,26 @@
-"use client"
-
 import { useState } from "react"
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
+
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import RecoverPassword from "./pages/RecoverPassword"
 import Home from "./pages/Home"
-import TrilhaHTML from "./componentes-trilhas/TrilhaHTML"
-import TrilhaCSS from "./componentes-trilhas/TrilhaCSS"
-import TrilhaJavaScript from "./componentes-trilhas/TrilhaJavaScript"
+import HomePage from "./pages/HomePage"
+import ModulesPage from "./pages/ModulesPage"
+import LessonsPage from "./pages/LessonsPage"
+import ActivityPage from "./pages/ActivityPage"
+
+import TrilhaHTML from "./components-trilhas/TrilhaHTML"
+import TrilhaCSS from "./components-trilhas/TrilhaCSS"
+import TrilhaJavaScript from "./components-trilhas/TrilhaJavaScript"
+
 import { NotificationProvider } from "./contexts/NotificationContext"
 import { ThemeProvider } from "./contexts/ThemeContext"
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("isAuthenticated") === "true")
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("isAuthenticated") === "true"
+  )
 
   const handleLogin = () => {
     localStorage.setItem("isAuthenticated", "true")
@@ -28,32 +35,60 @@ function App() {
   return (
     <ThemeProvider>
       <NotificationProvider>
-        <Router>
-          <Routes>
-            {/* Rota de login */}
-            <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} />
+        <div className="min-h-screen">
+          <Router>
+            <Routes>
+              {/* Rotas públicas */}
+              <Route
+                path="/login"
+                element={isAuthenticated ? <Navigate to="/" /> : <Login onLogin={handleLogin} />}
+              />
+              <Route
+                path="/register"
+                element={isAuthenticated ? <Navigate to="/" /> : <Register onLogin={handleLogin} />}
+              />
+              <Route path="/recover-password" element={<RecoverPassword />} />
 
-            {/* Rota de registro */}
-            <Route
-              path="/register"
-              element={isAuthenticated ? <Navigate to="/" /> : <Register onLogin={handleLogin} />}
-            />
+              {/* Rota principal protegida */}
+              <Route
+                path="/"
+                element={isAuthenticated ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />}
+              />
 
-            {/* Rota de recuperação de senha (sem proteção) */}
-            <Route path="/recover-password" element={<RecoverPassword />} />
+              {/* Rotas protegidas das trilhas */}
+              <Route
+                path="/trilha-html"
+                element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/trilha-css"
+                element={isAuthenticated ? <TrilhaCSS /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/trilha-javascript"
+                element={isAuthenticated ? <TrilhaJavaScript /> : <Navigate to="/login" />}
+              />
 
-            {/* Rota principal (Home) */}
-            <Route path="/" element={isAuthenticated ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />} />
-
-            {/* Trilhas protegidas */}
-            <Route path="/trilha-html" element={isAuthenticated ? <TrilhaHTML /> : <Navigate to="/login" />} />
-            <Route path="/trilha-css" element={isAuthenticated ? <TrilhaCSS /> : <Navigate to="/login" />} />
-            <Route
-              path="/trilha-javascript"
-              element={isAuthenticated ? <TrilhaJavaScript /> : <Navigate to="/login" />}
-            />
-          </Routes>
-        </Router>
+              {/* Rotas protegidas de navegação por módulos */}
+              <Route
+                path="/homepage"
+                element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/modules"
+                element={isAuthenticated ? <ModulesPage /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/modules/:moduleId/lessons"
+                element={isAuthenticated ? <LessonsPage /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/modules/:moduleId/lessons/:lessonId"
+                element={isAuthenticated ? <ActivityPage /> : <Navigate to="/login" />}
+              />
+            </Routes>
+          </Router>
+        </div>
       </NotificationProvider>
     </ThemeProvider>
   )
