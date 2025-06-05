@@ -110,17 +110,20 @@ const Mascot = ({ onClick }) => {
         .mascot-container {
           position: fixed;
           bottom: 50px;
-          left: 50px;
+          right: 50px;
           width: 150px;
           height: 200px;
           transform-origin: bottom center;
           z-index: 50;
+          /* Ajuste para subir levemente - aplicado aqui */
+          transform: translateY(-20px);
+          transition: transform 0.5s ease;
         }
 
         @media (max-width: 768px) {
           .mascot-container {
             bottom: 30px;
-            left: 30px;
+            right: 30px;
             width: 120px;
             height: 160px;
           }

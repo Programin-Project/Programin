@@ -1,17 +1,25 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import Logo from "../components-gerais/Logo"
 import ThemeToggle from "../components-gerais/ThemeToggle"
 import BackgroundEffects from "../components-acesso/BackgroundEffect"
 import MascotWithSpeech from "../components-gerais/MascoteWithSpeech"
 import { useNotification } from "../contexts/NotificationContext"
+import Logo from "../components-gerais/Logo"
 
 function RecoverPassword() {
   const [email, setEmail] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
   const { showNotification } = useNotification()
+
+  // Hook para detectar scroll (usado condicionalmente)
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -26,13 +34,26 @@ function RecoverPassword() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative" id="body">
-      <Logo variant="auth" />
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden" id="body">
+      {/* Logo - mantém posição base como referência */}
+      <div
+        className="absolute top-4 left-12 z-20 transition-transform duration-500 ease-out"
+        style={{
+          transform: `translateY(${scrollY * 0.1}px)`, // Movimento mínimo para manter consistência
+        }}
+      >
+        <Logo variant="auth" />
+      </div>
+
       <BackgroundEffects />
-      <MascotWithSpeech />
+
+      {/* Mascote com ajuste para subir levemente */}
+      <div className="fixed bottom-4 right-4 z-20 transform translate-y-[-20px] transition-transform duration-500">
+        <MascotWithSpeech />
+      </div>
 
       <div
-        className="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto z-10 my-10 card-animation relative"
+        className="bg-white rounded-lg shadow-lg w-full max-w-lg mx-auto z-10 my-10 card-animation relative"
         id="login-card"
       >
         <ThemeToggle />

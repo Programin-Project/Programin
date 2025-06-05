@@ -1,38 +1,46 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Logo from "../components-gerais/Logo";
-import ThemeToggle from "../components-gerais/ThemeToggle";
-import BackgroundEffects from "../components-acesso/BackgroundEffect";
-import MascotWithSpeech from "../components-gerais/MascoteWithSpeech";
-import { useNotification } from "../contexts/NotificationContext";
+import { useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import Logo from "../components-gerais/Logo"
+import ThemeToggle from "../components-gerais/ThemeToggle"
+import BackgroundEffects from "../components-acesso/BackgroundEffect"
+import MascotWithSpeech from "../components-gerais/MascoteWithSpeech"
+import { useNotification } from "../contexts/NotificationContext"
 
 function Login({ onLogin }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const { showNotification } = useNotification();
-  const navigate = useNavigate();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [remember, setRemember] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
+  const { showNotification } = useNotification()
+  const navigate = useNavigate()
+
+  // Hook para detectar scroll - usado para animação da logo
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+    e.preventDefault()
+    setIsLoading(true)
 
     // Simulando envio do formulário
     setTimeout(() => {
-      console.log("Tentativa de login:", { email, password, remember });
-      setIsLoading(false);
-      showNotification("Login realizado com sucesso!");
-      onLogin(); // isso define isAuthenticated como true
-      navigate("/"); // redireciona para Home
-    }, 1500);
-  };
+      console.log("Tentativa de login:", { email, password, remember })
+      setIsLoading(false)
+      showNotification("Login realizado com sucesso!")
+      onLogin() // isso define isAuthenticated como true
+      navigate("/") // redireciona para Home
+    }, 1500)
+  }
 
   const handleSocialLogin = (provider) => {
-    showNotification(`Redirecionando para o ${provider}...`);
+    showNotification(`Redirecionando para o ${provider}...`)
 
     setTimeout(() => {
       // URLs de redirecionamento conforme o original
@@ -43,54 +51,55 @@ function Login({ onLogin }) {
           "https://github.com/login/oauth/authorize?client_id=YOUR_GITHUB_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=user:email",
         LinkedIn:
           "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_LINKEDIN_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=r_liteprofile%20r_emailaddress",
-      };
+      }
 
-      window.location.href = urls[provider];
-    }, 1000);
-  };
+      window.location.href = urls[provider]
+    }, 1000)
+  }
 
   const handleForgotPassword = (e) => {
-    e.preventDefault();
-    showNotification("Redirecionando para recuperação de senha...");
+    e.preventDefault()
+    showNotification("Redirecionando para recuperação de senha...")
 
     setTimeout(() => {
-      navigate("/recover-password");
-    }, 1000);
-  };
+      navigate("/recover-password")
+    }, 1000)
+  }
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center relative"
-      id="body"
-    >
-      <div className="relative h-screen left-8">
-      <Logo variant="auth" />
-      {/* Conteúdo da página aqui */}
-    </div>
+    <div className="h-screen flex items-center justify-center relative overflow-hidden" id="body">
+      {/* Logo original - posição base de referência, sem movimento no Login */}
+      <div
+        className="absolute top-4 left-12 z-20 transition-transform duration-500 ease-out"
+        style={{
+          transform: `translateY(${scrollY * 0.1}px)`, // Movimento mínimo para manter consistência
+        }}
+      >
+        <Logo variant="auth" />
+      </div>
+
       <BackgroundEffects />
-      <MascotWithSpeech />
+
+      {/* Mascote com ajuste para subir levemente */}
+      <div className="fixed bottom-4 right-4 z-20 transform translate-y-[-20px] transition-transform duration-500">
+        <MascotWithSpeech />
+      </div>
 
       <div
-        className="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto z-10 my-10 card-animation relative"
+        className="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto z-10 px-4 card-animation relative"
         id="login-card"
       >
         {/* Switch de tema no canto superior direito */}
         <ThemeToggle />
 
         <div className="px-10 py-8">
-          <h1
-            className="text-[#1a1f36] text-2xl font-semibold text-center mb-8 title-animation"
-            id="login-title"
-          >
+          <h1 className="text-[#1a1f36] text-2xl font-semibold text-center mb-8 title-animation" id="login-title">
             Acesse sua conta
           </h1>
 
           <form onSubmit={handleSubmit} id="loginForm">
             <div className="mb-5 form-group-animation">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 E-mail
               </label>
               <input
@@ -105,15 +114,9 @@ function Login({ onLogin }) {
               />
             </div>
 
-            <div
-              className="mb-5 form-group-animation"
-              style={{ animationDelay: "100ms" }}
-            >
+            <div className="mb-5 form-group-animation" style={{ animationDelay: "100ms" }}>
               <div className="flex justify-between items-center mb-1">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Senha
                 </label>
                 <a
@@ -134,11 +137,7 @@ function Login({ onLogin }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <button
-                  type="button"
-                  className="password-toggle-btn"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
+                <button type="button" className="password-toggle-btn" onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -176,10 +175,7 @@ function Login({ onLogin }) {
               </div>
             </div>
 
-            <div
-              className="mb-6 form-group-animation"
-              style={{ animationDelay: "200ms" }}
-            >
+            <div className="mb-6 form-group-animation" style={{ animationDelay: "200ms" }}>
               <label className="flex items-center checkbox-container">
                 <div className="relative flex items-center justify-center">
                   <input
@@ -191,9 +187,7 @@ function Login({ onLogin }) {
                     onChange={(e) => setRemember(e.target.checked)}
                   />
                 </div>
-                <span className="ml-2 text-sm text-gray-700">
-                  Lembrar de mim neste dispositivo
-                </span>
+                <span className="ml-2 text-sm text-gray-700">Lembrar de mim neste dispositivo</span>
               </label>
             </div>
 
@@ -215,10 +209,7 @@ function Login({ onLogin }) {
             </button>
           </form>
 
-          <div
-            className="flex items-center my-6 divider-animation"
-            style={{ animationDelay: "400ms" }}
-          >
+          <div className="flex items-center my-6 divider-animation" style={{ animationDelay: "400ms" }}>
             <div className="flex-grow border-t border-gray-200"></div>
             <span className="px-4 text-sm text-gray-500">OU</span>
             <div className="flex-grow border-t border-gray-200"></div>
@@ -294,23 +285,20 @@ function Login({ onLogin }) {
         </div>
 
         <div
-          className="mt-6 py-4 px-10 bg-programin-light-blue rounded-b-lg text-center footer-animation"
+          className="mt-6 py-2 px-10 bg-programin-light-blue rounded-b-lg text-center footer-animation"
           style={{ animationDelay: "800ms" }}
           id="footer"
         >
           <p className="text-sm text-gray-600">
             Novo na Programin?{" "}
-            <Link
-              to="/register"
-              className="text-programin-blue hover:underline link-animation"
-            >
+            <Link to="/register" className="text-programin-blue hover:underline link-animation">
               Crie uma conta
             </Link>
           </p>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login

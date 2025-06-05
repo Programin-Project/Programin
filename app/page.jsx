@@ -1,6 +1,7 @@
-import App from "../src/App"
 import Link from "next/link"
+import Login from "../components/Login"
 import Button from "../../src/components/ui/button"
+import "../styles/auth.css"
 
 export function HomePage() {
   return (
@@ -27,6 +28,15 @@ export function HomePage() {
   )
 }
 
+export function LoginPage() {
+  return (
+    <div>
+      <Login />
+    </div>
+  )
+}
+
+// Página principal exportada
 export default function Page() {
-  return <App />
+  return <HomePage />
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Logo from "../components-gerais/Logo"
 import ThemeToggle from "../components-gerais/ThemeToggle"
@@ -17,8 +17,16 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
   const { showNotification } = useNotification()
   const navigate = useNavigate()
+
+  // Hook para detectar scroll - mantido para consistência
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const validatePasswords = () => {
     if (password !== confirmPassword) {
@@ -89,24 +97,37 @@ function Register() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative" id="body">
-      <Logo variant="auth" />
+    <div className="h-screen flex items-center justify-center relative overflow-hidden" id="body">
+      {/* Logo - posição base de referência, sem movimento no Register */}
+      <div
+        className="absolute top-4 left-12 z-20 transition-transform duration-500 ease-out"
+        style={{
+          transform: `translateY(${scrollY * 0.1}px)`, // Movimento mínimo para manter consistência
+        }}
+      >
+        <Logo variant="auth" />
+      </div>
+
       <BackgroundEffects />
-      <MascotWithSpeech />
+
+      {/* Mascote com ajuste para subir levemente */}
+      <div className="fixed bottom-4 right-4 z-20 transform translate-y-[-20px] transition-transform duration-500">
+        <MascotWithSpeech />
+      </div>
 
       <div
-        className="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto z-10 my-10 card-animation relative"
+        className="bg-white rounded-lg shadow-lg w-full max-w-lg mx-auto z-10 px-4 card-animation relative"
         id="login-card"
       >
         <ThemeToggle />
 
-        <div className="px-10 py-8">
-          <h1 className="text-[#1a1f36] text-2xl font-semibold text-center mb-6 title-animation" id="login-title">
+        <div className="px-10 py-6">
+          <h1 className="text-[#1a1f36] text-2xl font-semibold text-center mb-4 title-animation" id="login-title">
             Crie sua conta
           </h1>
 
           <form onSubmit={handleSubmit} id="cadastroForm">
-            <div className="mb-4 form-group-animation">
+            <div className="mb-2 form-group-animation">
               <label htmlFor="nome" className="block text-sm font-medium text-gray-700 mb-1">
                 Nome completo
               </label>
@@ -122,7 +143,7 @@ function Register() {
               />
             </div>
 
-            <div className="mb-4 form-group-animation" style={{ animationDelay: "100ms" }}>
+            <div className="mb-2 form-group-animation" style={{ animationDelay: "100ms" }}>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 E-mail
               </label>
@@ -137,7 +158,7 @@ function Register() {
               />
             </div>
 
-            <div className="mb-4 form-group-animation" style={{ animationDelay: "200ms" }}>
+            <div className="mb-2 form-group-animation" style={{ animationDelay: "200ms" }}>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                 Senha
               </label>
@@ -187,10 +208,9 @@ function Register() {
                   )}
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-1">Mínimo de 8 caracteres, incluindo letras e números</p>
             </div>
 
-            <div className="mb-5 form-group-animation" style={{ animationDelay: "300ms" }}>
+            <div className="mb-2 form-group-animation" style={{ animationDelay: "300ms" }}>
               <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1">
                 Confirmar senha
               </label>
@@ -246,7 +266,7 @@ function Register() {
               </div>
             </div>
 
-            <div className="mb-6 form-group-animation" style={{ animationDelay: "400ms" }}>
+            <div className="mb-2 form-group-animation" style={{ animationDelay: "400ms" }}>
               <label className="flex items-center checkbox-container">
                 <div className="relative flex items-center justify-center">
                   <input
@@ -290,7 +310,7 @@ function Register() {
             </button>
           </form>
 
-          <div className="flex items-center my-6 divider-animation" style={{ animationDelay: "600ms" }}>
+          <div className="flex items-center my-2 divider-animation" style={{ animationDelay: "600ms" }}>
             <div className="flex-grow border-t border-gray-200"></div>
             <span className="px-4 text-sm text-gray-500">OU</span>
             <div className="flex-grow border-t border-gray-200"></div>
@@ -366,7 +386,7 @@ function Register() {
         </div>
 
         <div
-          className="mt-6 py-4 px-10 bg-programin-light-blue rounded-b-lg text-center footer-animation"
+          className="py-2 px-10 bg-programin-light-blue rounded-b-lg text-center footer-animation"
           style={{ animationDelay: "1000ms" }}
           id="footer"
         >

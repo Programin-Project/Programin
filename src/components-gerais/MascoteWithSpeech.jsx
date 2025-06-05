@@ -51,7 +51,7 @@ const MascotWithSpeech = () => {
         .speech-bubble {
           position: fixed;
           bottom: 270px;
-          left: 50px;
+          right: 50px;
           background-color: white;
           border-radius: 20px;
           padding: 12px 16px;
@@ -68,7 +68,7 @@ const MascotWithSpeech = () => {
         @media (max-width: 768px) {
           .speech-bubble {
             bottom: 220px;
-            left: 30px;
+            right: 30px;
             min-width: 160px;
             max-width: 220px;
             padding: 10px 12px;
@@ -79,7 +79,7 @@ const MascotWithSpeech = () => {
           content: "";
           position: absolute;
           bottom: -12px;
-          left: 50px;
+          right: 50px;
           width: 0;
           height: 0;
           border-left: 12px solid transparent;
@@ -89,7 +89,7 @@ const MascotWithSpeech = () => {
 
         @media (max-width: 768px) {
           .speech-bubble:after {
-            left: 40px;
+            right: 40px;
           }
         }
 
@@ -97,7 +97,7 @@ const MascotWithSpeech = () => {
           content: "";
           position: absolute;
           bottom: -15px;
-          left: 48px;
+          right: 48px;
           width: 0;
           height: 0;
           border-left: 14px solid transparent;
@@ -107,7 +107,7 @@ const MascotWithSpeech = () => {
 
         @media (max-width: 768px) {
           .speech-bubble:before {
-            left: 38px;
+            right: 38px;
           }
         }
 
