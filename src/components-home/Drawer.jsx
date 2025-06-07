@@ -13,24 +13,24 @@ const Drawer = ({ isOpen, onClose, onLogout }) => {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300" onClick={onClose} />
       )}
 
-      {/* DRAWER: Cores consistentes com o novo header */}
+      {/* DRAWER: Cores ajustadas para combinar com o novo header */}
       <div
         className={`fixed top-0 right-0 h-full w-80 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         } flex flex-col ${
-          isDarkTheme ? "bg-[#2555A2] border-l border-[#1e4a87]" : "bg-white border-l border-blue-300"
+          isDarkTheme ? "bg-[#1E1E1E] border-l border-gray-700" : "bg-white border-l border-[#1a3d7a]"
         }`}
       >
-        {/* Header com cores programin */}
+        {/* Header com cores consistentes com o novo header */}
         <div
-          className={`p-6 border-b ${isDarkTheme ? "border-[#1e4a87] bg-[#1e4a87]" : "border-blue-300 bg-[#BEEBFE]"}`}
+          className={`p-6 border-b ${isDarkTheme ? "border-gray-700 bg-gray-800" : "border-[#1a3d7a] bg-[#224D94]"}`}
         >
           <div className="flex justify-between items-center">
-            <h2 className={`text-xl font-semibold ${isDarkTheme ? "text-white" : "text-[#1a1f36]"}`}>Menu</h2>
+            <h2 className={`text-xl font-semibold ${isDarkTheme ? "text-white" : "text-white"}`}>Menu</h2>
             <button
               onClick={onClose}
               className={`p-2 rounded-full transition-colors ${
-                isDarkTheme ? "hover:bg-[#2555A2] text-gray-300" : "hover:bg-white text-gray-600 hover:shadow-md"
+                isDarkTheme ? "hover:bg-gray-700 text-gray-300" : "hover:bg-[#1a3d7a] text-gray-200 hover:text-white"
               }`}
               aria-label="Fechar menu"
             >
@@ -41,14 +41,14 @@ const Drawer = ({ isOpen, onClose, onLogout }) => {
 
         {/* Perfil com fundo consistente */}
         <div
-          className={`p-6 border-b flex items-center space-x-4 ${isDarkTheme ? "border-[#1e4a87]" : "border-blue-200"}`}
+          className={`p-6 border-b flex items-center space-x-4 ${isDarkTheme ? "border-gray-700" : "border-[#1a3d7a]"}`}
         >
           <div className="w-12 h-12 rounded-full bg-gradient-to-r from-programin-blue to-blue-600 flex items-center justify-center">
             <User className="text-white" size={24} />
           </div>
           <div>
             <p className={`font-medium ${isDarkTheme ? "text-white" : "text-[#1a1f36]"}`}>Usuário</p>
-            <p className={`text-sm ${isDarkTheme ? "text-blue-200" : "text-gray-600"}`}>estudante@programin.com</p>
+            <p className={`text-sm ${isDarkTheme ? "text-gray-300" : "text-gray-600"}`}>estudante@programin.com</p>
           </div>
         </div>
 
@@ -65,8 +65,8 @@ const Drawer = ({ isOpen, onClose, onLogout }) => {
               href={item.href}
               className={`flex items-center space-x-3 p-3 rounded-lg transition-all duration-300 hover:scale-105 ${
                 isDarkTheme
-                  ? "hover:bg-[#1e4a87] text-blue-100 hover:text-white"
-                  : "hover:bg-[#BEEBFE] text-gray-700 hover:text-gray-900 hover:shadow-md"
+                  ? "hover:bg-gray-800 text-gray-300 hover:text-white"
+                  : "hover:bg-[#224D94] text-gray-700 hover:text-white hover:shadow-md"
               }`}
             >
               <item.icon size={20} className="text-programin-blue" />
@@ -76,7 +76,7 @@ const Drawer = ({ isOpen, onClose, onLogout }) => {
         </nav>
 
         {/* Logout com cores consistentes */}
-        <div className={`p-6 border-t ${isDarkTheme ? "border-[#1e4a87]" : "border-blue-200"}`}>
+        <div className={`p-6 border-t ${isDarkTheme ? "border-gray-700" : "border-[#1a3d7a]"}`}>
           <button
             onClick={onLogout}
             className={`flex items-center space-x-3 w-full p-3 rounded-lg transition-all duration-300 hover:scale-105 ${
