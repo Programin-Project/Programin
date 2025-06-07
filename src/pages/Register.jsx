@@ -116,7 +116,7 @@ function Register() {
       </div>
 
       <div
-        className="bg-white rounded-lg shadow-lg w-full max-w-lg mx-auto z-10 px-4 card-animation relative"
+        className="bg-ice-white rounded-lg shadow-lg w-full max-w-lg mx-auto z-10 px-4 card-animation relative"
         id="login-card"
       >
         <ThemeToggle />
@@ -135,7 +135,7 @@ function Register() {
                 type="text"
                 id="nome"
                 name="nome"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none input-animation"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none input-animation bg-ice-white"
                 required
                 autoFocus
                 value={nome}
@@ -151,7 +151,7 @@ function Register() {
                 type="email"
                 id="email"
                 name="email"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none input-animation"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none input-animation bg-ice-white"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -167,7 +167,7 @@ function Register() {
                   type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none input-animation"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none input-animation bg-ice-white"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -219,7 +219,7 @@ function Register() {
                   type={showConfirmPassword ? "text" : "password"}
                   id="confirm-password"
                   name="confirm-password"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none input-animation"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none input-animation bg-ice-white"
                   required
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -318,7 +318,7 @@ function Register() {
 
           <div className="space-y-3">
             <button
-              className="w-full border border-gray-300 rounded-md py-2 px-4 flex items-center justify-center hover:bg-gray-50 transition-colors alt-button-animation"
+              className="w-full border border-gray-300 rounded-md py-2 px-4 flex items-center justify-center hover:bg-gray-50 transition-colors alt-button-animation bg-ice-white"
               style={{ animationDelay: "700ms" }}
               onClick={() => handleSocialLogin("Google")}
             >
@@ -344,7 +344,7 @@ function Register() {
             </button>
 
             <button
-              className="w-full border border-gray-300 rounded-md py-2 px-4 flex items-center justify-center hover:bg-gray-50 transition-colors alt-button-animation"
+              className="w-full border border-gray-300 rounded-md py-2 px-4 flex items-center justify-center hover:bg-gray-50 transition-colors alt-button-animation bg-ice-white"
               style={{ animationDelay: "800ms" }}
               onClick={() => handleSocialLogin("GitHub")}
             >
@@ -366,7 +366,7 @@ function Register() {
             </button>
 
             <button
-              className="w-full border border-gray-300 rounded-md py-2 px-4 flex items-center justify-center hover:bg-gray-50 transition-colors alt-button-animation"
+              className="w-full border border-gray-300 rounded-md py-2 px-4 flex items-center justify-center hover:bg-gray-50 transition-colors alt-button-animation bg-ice-white"
               style={{ animationDelay: "900ms" }}
               onClick={() => handleSocialLogin("LinkedIn")}
             >

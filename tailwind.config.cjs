@@ -21,6 +21,7 @@ module.exports = {
         // Custom colors
         "programin-blue": "#3170D7",
         "programin-light-blue": "#e7ecf8",
+        "ice-white": "#f5f5f5", // Nova cor personalizada
 
         text: {
           primary: "#1a1a1a",

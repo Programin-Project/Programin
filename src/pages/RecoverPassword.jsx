@@ -53,7 +53,7 @@ function RecoverPassword() {
       </div>
 
       <div
-        className="bg-white rounded-lg shadow-lg w-full max-w-lg mx-auto z-10 my-10 card-animation relative"
+        className="bg-ice-white rounded-lg shadow-lg w-full max-w-lg mx-auto z-10 my-10 card-animation relative"
         id="login-card"
       >
         <ThemeToggle />
@@ -76,7 +76,7 @@ function RecoverPassword() {
                 type="email"
                 id="email"
                 name="email"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none input-animation"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none input-animation bg-ice-white"
                 required
                 autoFocus
                 value={email}
