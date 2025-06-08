@@ -29,10 +29,10 @@ const CourseCard = ({
       interactionClasses = "cursor-not-allowed opacity-60"
     }
 
-    // MELHORIA 3: Unificação das cores dos cards - usando cores do tema escuro em ambos os temas
+    // NOVA COR: Card HTML agora usa #FFB244 em ambos os temas
     switch (color) {
       case "orange":
-        return `${baseClasses} ${interactionClasses} bg-gradient-to-br from-orange-900 to-orange-800 border-2 border-orange-700`
+        return `${baseClasses} ${interactionClasses} bg-[#FFB244] border-2 border-orange-400`
       case "blue":
         return `${baseClasses} ${interactionClasses} bg-gradient-to-br from-blue-900 to-blue-800 border-2 border-blue-700`
       case "yellow":
@@ -43,12 +43,18 @@ const CourseCard = ({
   }
 
   const getTitleColor = () => {
-    // MELHORIA 3: Texto sempre claro para contrastar com o fundo escuro unificado
+    // AJUSTE: Texto escuro para card HTML (#FFB244) para melhor contraste
+    if (color === "orange") {
+      return isUnlocked ? "text-gray-900" : "text-gray-600"
+    }
     return isUnlocked ? "text-[#F5F5F5]" : "text-gray-400"
   }
 
   const getDescriptionColor = () => {
-    // MELHORIA 3: Texto sempre claro para contrastar com o fundo escuro unificado
+    // AJUSTE: Texto escuro para card HTML (#FFB244) para melhor contraste
+    if (color === "orange") {
+      return isUnlocked ? "text-gray-800" : "text-gray-600"
+    }
     return isUnlocked ? "text-gray-200" : "text-gray-500"
   }
 
@@ -83,10 +89,13 @@ const CourseCard = ({
     // CHIPS COM CONTROLE DE ESTADO: Diferentes estilos baseados no status da trilha (MANTIDO)
     const interactionClasses = isUnlocked ? "hover:scale-105" : "opacity-50 cursor-not-allowed"
 
-    // MELHORIA 3: Chips sempre com cores do tema escuro para consistência
+    // AJUSTE: Chips do card HTML com cores adaptadas para fundo #FFB244
+    if (color === "orange") {
+      return `${baseClasses} ${interactionClasses} bg-white bg-opacity-90 text-orange-900 border border-orange-300 hover:bg-orange-50 hover:border-orange-400`
+    }
+
+    // Outros cards mantêm as cores originais
     switch (color) {
-      case "orange":
-        return `${baseClasses} ${interactionClasses} bg-orange-800 text-orange-200 border border-orange-600 hover:bg-orange-700`
       case "blue":
         return `${baseClasses} ${interactionClasses} bg-blue-800 text-blue-200 border border-blue-600 hover:bg-blue-700`
       case "yellow":

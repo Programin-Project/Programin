@@ -123,8 +123,8 @@ const Home = ({ onLogout }) => {
   return (
     <div
       className={`flex flex-col min-h-screen transition-colors duration-300 ${
-        // MELHORIA 2: Alternância de cores - Main agora usa a cor que antes era do header/footer
-        isDarkTheme ? "bg-[#1e4a87]" : "bg-gradient-to-br from-white to-[#BEEBFE]"
+        // NOVA COR: Alterada para #2a2550 no tema escuro
+        isDarkTheme ? "bg-[#2a2550]" : "bg-gradient-to-br from-white to-[#BEEBFE]"
       }`}
     >
       <Header toggleDrawer={toggleDrawer} />
