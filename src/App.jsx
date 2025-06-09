@@ -58,7 +58,7 @@ function App() {
               />
 
               {/* Rotas protegidas das trilhas */}
-              <Route path="/trilha-html" element={isAuthenticated ? <LessonsPage /> : <Navigate to="/login" />} />
+              <Route path="/trilha-html" element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />} />
               <Route path="/trilha-css" element={isAuthenticated ? <TrilhaCSS /> : <Navigate to="/login" />} />
               <Route
                 path="/trilha-javascript"
