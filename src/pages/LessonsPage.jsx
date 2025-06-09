@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { Code } from "lucide-react"
 import { modules } from "../data/modules"
@@ -10,14 +11,31 @@ import LearningTrail from "../components-trilhas/LearningTrail"
 import RewardChests from "../components-trilhas/RewardChests"
 import HealthBar from "../components-trilhas/HealthBar"
 import Badge from "../components-trilhas/ui/Badge"
+import Drawer from "../components-home/Drawer"
+import { useTheme } from "../contexts/ThemeContext"
 
 export default function LessonsPage() {
   const { moduleId } = useParams()
   const navigate = useNavigate()
   const { getProgressPercentage } = useProgress()
   const { hearts, maxHearts } = useGameState()
+  const { isDarkTheme } = useTheme()
+
+  // Estado para controlar o Drawer
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const selectedModule = modules.find((m) => m.id === moduleId)
+
+  // Função para controlar o Drawer
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen)
+  }
+
+  // Função de logout (placeholder)
+  const handleLogout = () => {
+    console.log("Logout - implementar se necessário")
+    // navigate("/login") // Descomente se necessário
+  }
 
   if (!selectedModule) {
     return (
@@ -60,7 +78,11 @@ export default function LessonsPage() {
 
   return (
     <div className="min-h-screen" style={getPageBackgroundGradient(selectedModule.level)}>
-      <ModulesNavigation selectedModule={selectedModule} />
+      {/* Drawer importado da Home */}
+      <Drawer isOpen={isDrawerOpen} onClose={toggleDrawer} onLogout={handleLogout} />
+
+      {/* ModulesNavigation com as novas funcionalidades */}
+      <ModulesNavigation selectedModule={selectedModule} toggleDrawer={toggleDrawer} />
 
       <div className="max-w-6xl mx-auto p-6">
         <div className="bg-slate-50 rounded-xl shadow-lg p-4 mb-4">

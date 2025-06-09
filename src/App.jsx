@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage"
 import ModulesPage from "./pages/ModulesPage"
 import LessonsPage from "./pages/LessonsPage"
 import ActivityPage from "./pages/ActivityPage"
+import LandingPage from "./pages/LandingPage"
 import TrilhaCSS from "./components-trilhas/TrilhaCSS"
 import TrilhaJavaScript from "./components-trilhas/TrilhaJavaScript"
 
@@ -36,19 +37,28 @@ function App() {
         <div className="min-h-screen">
           <Router>
             <Routes>
+              {/* Nova rota de apresentação como página inicial */}
+              <Route path="/" element={isAuthenticated ? <Navigate to="/home" /> : <LandingPage />} />
+
               {/* Rotas públicas */}
-              <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} />
+              <Route
+                path="/login"
+                element={isAuthenticated ? <Navigate to="/home" /> : <Login onLogin={handleLogin} />}
+              />
               <Route
                 path="/register"
-                element={isAuthenticated ? <Navigate to="/" /> : <Register onLogin={handleLogin} />}
+                element={isAuthenticated ? <Navigate to="/home" /> : <Register onLogin={handleLogin} />}
               />
               <Route path="/recover-password" element={<RecoverPassword />} />
 
-              {/* Rota principal protegida */}
-              <Route path="/" element={isAuthenticated ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />} />
+              {/* Rota principal protegida - mudou de "/" para "/home" */}
+              <Route
+                path="/home"
+                element={isAuthenticated ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />}
+              />
 
               {/* Rotas protegidas das trilhas */}
-              <Route path="/trilha-html" element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />} />
+              <Route path="/trilha-html" element={isAuthenticated ? <LessonsPage /> : <Navigate to="/login" />} />
               <Route path="/trilha-css" element={isAuthenticated ? <TrilhaCSS /> : <Navigate to="/login" />} />
               <Route
                 path="/trilha-javascript"

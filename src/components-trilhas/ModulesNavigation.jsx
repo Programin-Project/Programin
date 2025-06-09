@@ -1,73 +1,98 @@
 "use client"
-
-import { Fragment } from "react"
 import { useNavigate } from "react-router-dom"
-import { Home, BookOpen, Code, Trophy } from "lucide-react"
+import { Brain, Menu } from "lucide-react"
 import { modules } from "../data/modules"
-import Button from "./ui/Button"
+import Logo from "../components-gerais/Logo"
+import ThemeToggle from "../components-home/ThemeToggle"
+import { useTheme } from "../contexts/ThemeContext"
 
-export default function ModulesNavigation({ selectedModule }) {
+export default function ModulesNavigation({ selectedModule, toggleDrawer }) {
   const navigate = useNavigate()
+  const { isDarkTheme } = useTheme()
 
-  const handleBackToHome = () => {
-    navigate("/")
+  const handleModuleChange = (moduleId) => {
+    navigate(`/modules/${moduleId}/lessons`)
   }
 
-  const handleModuleSelect = (module) => {
-    navigate(`/modules/${module.id}/lessons`)
-  }
+  // Cores do header baseadas no tema
+  const bgColor = isDarkTheme ? "bg-[#1E1E1E]" : "bg-[#224D94]"
+  const textColor = "text-white"
+  const borderColor = isDarkTheme ? "border-gray-700" : "border-[#1a3d7a]"
 
   return (
-    <nav className="bg-slate-50 shadow-sm border-b sticky top-0 z-10">
-      <div className="max-w-6xl mx-auto px-6 py-6">
-        <div className="flex items-center w-full">
-          <Button variant="ghost" onClick={handleBackToHome} className="flex items-center gap-2 text-base mr-6">
-            <Home className="w-5 h-5" />
-            Início
-          </Button>
+    <nav
+      className={`shadow-lg transition-colors duration-300 ${bgColor} ${textColor} border-b ${borderColor} sticky top-0 z-40`}
+    >
+      <div className="max-w-6xl mx-auto px-4 py-4">
+        <div className="flex justify-between items-center relative min-h-[60px]">
+          {/* Aprenda com a IA - Esquerda */}
+          <div className="flex-1 flex justify-start">
+            <button
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+                isDarkTheme
+                  ? "bg-gray-800 hover:bg-gray-700 text-white border border-gray-600"
+                  : "bg-[#1a3d7a] hover:bg-[#153366] text-white border border-[#0f2952]"
+              }`}
+              aria-label="Aprenda com a IA"
+            >
+              <Brain size={20} className={isDarkTheme ? "text-blue-300" : "text-blue-200"} />
+              <span className="font-medium hidden sm:inline">Aprenda com a IA</span>
+              <span className="font-medium sm:hidden">IA</span>
+            </button>
+          </div>
 
-          <div className="flex-1 flex items-center">
-            {modules.map((module, index) => (
-              <Fragment key={module.id}>
-                <Button
-                  variant={selectedModule?.id === module.id ? "default" : "outline"}
-                  size="lg"
-                  onClick={() => handleModuleSelect(module)}
-                  className={`flex items-center justify-center gap-3 px-6 py-3 text-base font-medium flex-1 rounded-lg ${
-                    module.level === "Iniciante"
-                      ? selectedModule?.id === module.id
-                        ? "text-white border-orange-400"
-                        : "border-orange-300 text-orange-700 hover:bg-orange-50"
-                      : module.level === "Intermediário"
-                        ? selectedModule?.id === module.id
-                          ? "text-white border-orange-500"
-                          : "border-orange-400 text-orange-700 hover:bg-orange-50"
-                        : selectedModule?.id === module.id
-                          ? "text-white border-red-600"
-                          : "border-red-400 text-red-700 hover:bg-red-50"
-                  }`}
-                  style={
+          {/* Logo Programin - Centro */}
+          <div className="flex-1 flex justify-center">
+            <div
+              className={`transition-all duration-300 ${isDarkTheme ? "" : "brightness-0 invert"}`}
+              style={{
+                filter: isDarkTheme ? "none" : "brightness(0) invert(1)",
+              }}
+            >
+              <Logo variant="home" />
+            </div>
+          </div>
+
+          {/* Controles - Direita */}
+          <div className="flex-1 flex justify-end items-center space-x-4">
+            {/* Botões dos módulos */}
+            <div className="flex items-center space-x-2">
+              {modules.map((module) => (
+                <button
+                  key={module.id}
+                  onClick={() => handleModuleChange(module.id)}
+                  className={`px-3 py-2 rounded-lg font-medium transition-all duration-300 text-sm ${
                     selectedModule?.id === module.id
-                      ? module.level === "Iniciante"
-                        ? { background: "#FFB347" }
-                        : module.level === "Intermediário"
-                          ? { background: "#FF6F1F" }
-                          : { background: "#D44700" }
-                      : {}
-                  }
+                      ? "bg-orange-600 text-white shadow-lg"
+                      : isDarkTheme
+                        ? "bg-gray-700 text-gray-200 hover:bg-gray-600 hover:text-white"
+                        : "bg-[#1a3d7a] text-gray-200 hover:bg-[#153366] hover:text-white"
+                  }`}
                 >
-                  {module.level === "Iniciante" && <BookOpen className="w-5 h-5" />}
-                  {module.level === "Intermediário" && <Code className="w-5 h-5" />}
-                  {module.level === "Avançado" && <Trophy className="w-5 h-5" />}
                   {module.level}
-                </Button>
-                {index < modules.length - 1 && (
-                  <div className="flex items-center justify-center px-3">
-                    <span className="text-gray-400 text-lg font-light">/</span>
-                  </div>
-                )}
-              </Fragment>
-            ))}
+                </button>
+              ))}
+            </div>
+
+            {/* ThemeToggle */}
+            <div className="mr-2">
+              <div className={isDarkTheme ? "" : "text-white [&_*]:text-white [&_*]:fill-white [&_svg]:text-white"}>
+                <ThemeToggle />
+              </div>
+            </div>
+
+            {/* Botão do Drawer */}
+            <button
+              className={`flex items-center justify-center h-10 w-10 rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-md ${
+                isDarkTheme
+                  ? "hover:bg-gray-800 text-gray-300 hover:text-white"
+                  : "hover:bg-[#1a3d7a] text-white hover:text-white"
+              }`}
+              onClick={toggleDrawer}
+              aria-label="Menu"
+            >
+              <Menu size={24} />
+            </button>
           </div>
         </div>
       </div>
