@@ -21,7 +21,7 @@ const Home = ({ onLogout }) => {
       title: "Aprenda HTML",
       description:
         "Domine a linguagem de marcação fundamental para a web. Aprenda a estruturar páginas, criar formulários e entender os elementos semânticos do HTML5.",
-      image: "/placeholder.svg?height=200&width=300&text=HTML",
+      image: "https://s.zst.com.br/cms-assets/2021/03/como-funciona-html-1-.jpg",
       color: "orange",
       isCompleted: false,
       isUnlocked: true,
@@ -39,7 +39,7 @@ const Home = ({ onLogout }) => {
       title: "Aprenda CSS",
       description:
         "Transforme suas páginas HTML com estilos incríveis. Aprenda layouts flexbox, grid, animações e técnicas de design responsivo para todos os dispositivos.",
-      image: "/placeholder.svg?height=200&width=300&text=CSS",
+      image: "https://herospark.com/blog/wp-content/uploads/sites/6/2023/12/tkzycxmrkk4.jpg",
       color: "blue",
       isCompleted: false,
       isUnlocked: false,
@@ -57,7 +57,8 @@ const Home = ({ onLogout }) => {
       title: "Aprenda JavaScript",
       description:
         "Dê vida às suas páginas web com interatividade. Aprenda a manipular o DOM, criar animações, validar formulários e construir aplicações dinâmicas.",
-      image: "/placeholder.svg?height=200&width=300&text=JS",
+      image:
+        "https://www.targethost.com.br/wp-content/uploads/2019/03/MaxPixel.freegreatpicture.com-Programming-Program-Source-Code-Code-Javascript-3337044.jpg",
       color: "yellow",
       isCompleted: false,
       isUnlocked: false,
@@ -122,10 +123,8 @@ const Home = ({ onLogout }) => {
 
   return (
     <div
-      className={`flex flex-col min-h-screen transition-colors duration-300 ${
-        // NOVA COR: Alterada para #2a2550 no tema escuro
-        isDarkTheme ? "bg-[#2a2550]" : "bg-gradient-to-br from-white to-[#BEEBFE]"
-      }`}
+      className="flex flex-col min-h-screen transition-colors duration-300"
+      style={isDarkTheme ? { backgroundColor: "#1D4380" } : {}}
     >
       <Header toggleDrawer={toggleDrawer} />
       <Drawer isOpen={isDrawerOpen} onClose={toggleDrawer} onLogout={onLogout} />

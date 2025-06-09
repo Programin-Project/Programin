@@ -31,7 +31,10 @@ export default function HomePage() {
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDarkTheme ? "bg-[#2a2550]" : "bg-[#D9F3FF]"}`}>
+    <div
+      className="min-h-screen transition-colors duration-300"
+      style={isDarkTheme ? { backgroundColor: "#1D4380" } : { backgroundColor: "#D9F3FF" }}
+    >
       {/* HEADER: Importado e inserido com função toggleDrawer */}
       <Header toggleDrawer={toggleDrawer} />
 
@@ -39,7 +42,7 @@ export default function HomePage() {
       <Drawer isOpen={isDrawerOpen} onClose={toggleDrawer} onLogout={handleLogout} />
 
       {/* CONTEÚDO PRINCIPAL: Refatorado com as novas cores */}
-      <div className="flex items-center justify-center px-6 py-12">
+      <main className="flex items-center justify-center px-6 py-12">
         <div className="max-w-6xl mx-auto w-full">
           {/* SEÇÃO PRINCIPAL: Card centralizado com cor #E65B02 em ambos os temas */}
           <div
@@ -131,7 +134,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   )
 }

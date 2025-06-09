@@ -61,7 +61,10 @@ export default function ModulesPage() {
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDarkTheme ? "bg-[#2a2550]" : "bg-[#D3ECF8]"}`}>
+    <div
+      className="min-h-screen transition-colors duration-300"
+      style={isDarkTheme ? { backgroundColor: "#1D4380" } : { backgroundColor: "#D3ECF8" }}
+    >
       {/* Header importado da Home */}
       <Header toggleDrawer={toggleDrawer} />
 
